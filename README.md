@@ -86,7 +86,7 @@ To run the demo for development, you will need to:
  
  ```
  export PROJECT=some_project # Google Cloud project you are working under 
- export VERSION=0.8.2 #the `VERSION` to whatever you like e.g latest or 0.8.2
+ export VERSION=0.8.2        # set the VERSION to whatever you like e.g latest or 0.8.2
  ```
  Now set `CONTAINER_REGION`, the location of the container [registry](https://cloud.google.com/container-registry/docs/pushing-and-pulling)
  
@@ -112,7 +112,7 @@ then run it
 
 look out for something like 
 ```bash
-The push refers to repository [us.gcr.io/YOUR_PROJECT/allennlp]
+The push refers to repository [us.gcr.io/PROJECT/allennlp]
 ...
 DIGEST        TAGS          TIMESTAMP
 XXXXXXX  0.8.2,latest  2019-03-19T15:07:01
@@ -149,7 +149,7 @@ XXXXXXX                2019-03-12T20:25:41
  * [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 
  * [Minikube](https://kubernetes.io/docs/setup/minikube/) - optional if you want to test locally first
  
- 1. Follow the steps [here] (https://cloud.google.com/kubernetes-engine/docs/quickstart) to learn more about GKE
+ 1. Follow the steps [here](https://cloud.google.com/kubernetes-engine/docs/quickstart) to learn more about GKE
  
  2. Create a GKE cluster, 50GB disk, `highmem` instances are recommended for loading and serving models. Other [instances](https://cloud.google.com/compute/docs/machine-types) are available too.
  You can also add `--preemptible` to save running costs see [here](https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms)  
@@ -165,7 +165,7 @@ XXXXXXX                2019-03-12T20:25:41
  3. Get access to the cluster
  
 ```bash
-gcloud beta container clusters get-credentials example-cluster --region us-central1 --project YOUR_PROJECT_NAME
+gcloud beta container clusters get-credentials example-cluster --region us-central1 --project PROJECT
 ```
 4. Apply the changes
 
