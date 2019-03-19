@@ -1,3 +1,17 @@
+#  Modified Copyright 2019 GridCell Ltd
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
 # AllenNLP Demo
 
 This repository contains the AllenNLP demo.
@@ -54,6 +68,8 @@ To run the demo for development, you will need to:
     ```
 
     Normally, the backend server would manage the frontend assets as well - the JS has a special hack for if it is running on port 3000 (which it does by default if you are running the unoptimized JS using `npm run start`), it will look for the backend service at port 8000. Otherwise, it serves the backend and the frontend from the same port.
+ 
+ # Section added by by [gridcell](https://twitter.com/gridcell_io) 
  
  # Deploying on Kubernetes (Google Kubernetes Engine)
  

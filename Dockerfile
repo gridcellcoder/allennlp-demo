@@ -1,3 +1,17 @@
+#    Modifications Copyright 2019 GridCell Ltd
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
 # This Dockerfile is used to serve the AllenNLP demo.
 
 FROM allennlp/commit:31af01e0db7ac401b6c4923d5badd7de2691d6a2
@@ -5,7 +19,7 @@ LABEL maintainer="allennlp-contact@allenai.org"
 
 WORKDIR /stage/allennlp
 
-#Use cache busting to install and upgrade https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+# Use cache busting to install and upgrade https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
 RUN apt-get -y update && apt-get -y upgrade
 
 # Install Java.
