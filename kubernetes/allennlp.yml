@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: allennlp
+  labels:
+    app: allennlp
+spec:
+  selector:
+    matchLabels:
+      app: allennlp
+  # the headless-service that governs this StatefulSet
+  # responsible for the network identity of the set.
+  serviceName: allennlp-discovery-svc
+  replicas: 3
+  # Template is the object that describes the pod that will be created
+  template:
+    metadata:
+      labels:
+        app: allennlp
+    spec:
+      securityContext:
+        # allows read/write access for mounted volumes
+        # by users that belong to a group with gid: 1000
+        fsGroup: 1000
+      initContainers:
+      # init-container for setting the mmap count limit
+      - name: sysctl
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+        securityContext:
+          privileged: true
+      #optional uncomment these 2 next lines if you want allennlp to only run on specified nodes
+      #see https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+#      nodeSelector:
+#        purpose: allennlp
+      containers:
+      - name: allennlp
+        image:  CHANGE_ME #enter path to docker registry e.g on google cloud container registry eu.gcr.io/PROJECT_ID/allennlp:0.8.2
+        resources:
+            limits:
+              memory: "13Gi"
+              cpu: "2.5"
+            requests:
+              memory: "12.0Gi"
+              cpu: "2"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: transport
+          protocol: TCP
+        volumeMounts:
+        - name: es-data-vc
+          mountPath: /usr/share/allennlp/data
+#  # The StatefulSet guarantees that a given [POD] network identity will
+#  # always map to the same storage identity
+  volumeClaimTemplates:
+  - metadata:
+      name: es-data-vc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          # elasticsearch mounted data directory size (to be adjusted based on need)
+          storage: 25Gi
+      storageClassName: gce-standard-sc
+      # no LabelSelector  defined
+      # claims can specify a label selector to further filter the set of volumes
+      # currently, a PVC with a non-empty selector can not have a PV dynamically provisioned for it
+      # no volumeName is provided
